@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurante El Sabor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f9f5f0; color: #333; }
+    header, nav, section, footer { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    header { background: #b85c3a; color: white; text-align: center; padding: 30px; border-radius: 0 0 20px 20px; }
+    nav { display: flex; justify-content: center; gap: 30px; background: white; padding: 15px; border-radius: 10px; margin-top: -15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    nav a { text-decoration: none; color: #b85c3a; font-weight: bold; padding: 8px 20px; border-radius: 20px; transition: background 0.3s; }
+    nav a:hover { background: #b85c3a; color: white; }
+    section { background: white; border-radius: 20px; padding: 30px; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    h2 { color: #b85c3a; border-bottom: 3px solid #f0d5c3; padding-bottom: 10px; margin-bottom: 20px; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .menu-item { background: #fff9f5; border: 1px solid #e8d5c8; border-radius: 15px; padding: 15px; text-align: center; }
+    .menu-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
+    .menu-item h3 { margin: 10px 0 5px; color: #b85c3a; }
+    .menu-item .price { font-weight: bold; color: #555; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: bold; margin-bottom: 5px; }
+    select, input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+    .btn { background: #b85c3a; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-size: 16px; cursor: pointer; transition: background 0.3s; margin-right: 10px; }
+    .btn:hover { background: #9a4a2d; }
+    .btn-cancel { background: #777; }
+    .btn-cancel:hover { background: #555; }
+    .cart-summary { background: #f0ece7; padding: 20px; border-radius: 15px; margin: 20px 0; min-height: 100px; }
+    .cart-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #ccc; }
+    .total { font-size: 1.4em; font-weight: bold; text-align: right; margin-top: 15px; color: #b85c3a; }
+    .empty-cart { color: #999; text-align: center; padding: 20px; }
+    footer { text-align: center; color: #888; padding: 30px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍽️ Restaurante El Sabor</h1>
+    <p>Comida tradicional con un toque moderno</p>
+  </header>
+
+  <nav>
+    <a href="#menu">Menú</a>
+    <a href="#pedido">Hacer Pedido</a>
+    <a href="#pago">Pago / Cancelar</a>
+  </nav>
+
+  <!-- SECCIÓN MENÚ -->
+  <section id="menu">
+    <h2>Nuestro Menú</h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <img src="https://placehold.co/300x200/EEDDCC/333?text=Pizza" alt="Pizza">
+        <h3>Pizza Margherita</h3>
+        <p class="price">$12.000</p>
+      </div>
+      <div class="menu-item">
+        <img src="https://placehold.co/300x200/EEDDCC/333?text=Pasta" alt="Pasta">
+        <h3>Pasta Carbonara</h3>
+        <p class="price">$14.500</p>
+      </div>
+      <div class="menu-item">
+        <img src="https://placehold.co/300x200/EEDDCC/333?text=Ensalada" alt="Ensalada">
+        <h3>Ensalada César</h3>
+        <p class="price">$10.000</p>
+      </div>
+      <div class="menu-item">
+        <img src="https://placehold.co/300x200/EEDDCC/333?text=Postre" alt="Postre">
+        <h3>Tiramisú</h3>
+        <p class="price">$8.000</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN PEDIDO -->
+  <section id="pedido">
+    <h2>Hacer Pedido</h2>
+    <form id="orderForm">
+      <div class="form-group">
+        <label for="plato">Selecciona un plato</label>
+        <select id="plato">
+          <option value="Pizza Margherita" data-price="12000">Pizza Margherita - $12.000</option>
+          <option value="Pasta Carbonara" data-price="14500">Pasta Carbonara - $14.500</option>
+          <option value="Ensalada César" data-price="10000">Ensalada César - $10.000</option>
+          <option value="Tiramisú" data-price="8000">Tiramisú - $8.000</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="cantidad">Cantidad</label>
+        <input type="number" id="cantidad" min="1" value="1">
+      </div>
+      <div class="form-group">
+        <label for="comentarios">Comentarios adicionales</label>
+        <textarea id="comentarios" rows="2" placeholder="Ej: sin cebolla, bien cocido..."></textarea>
+      </div>
+      <button type="button" class="btn" id="addToCartBtn">Agregar al pedido</button>
+    </form>
+  </section>
+
+  <!-- SECCIÓN PAGO / CANCELACIÓN -->
+  <section id="pago">
+    <h2>Pago / Cancelación</h2>
+    <div class="cart-summary" id="cartSummary">
+      <div class="empty-cart">🛒 No hay productos en el carrito</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <button class="btn" id="payBtn">✅ Pagar ahora</button>
+      <button class="btn btn-cancel" id="cancelBtn">❌ Cancelar pedido</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Restaurante El Sabor — Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Base de datos de platos (nombre, precio)
+    const menuItems = [
+      { name: 'Pizza Margherita', price: 12000 },
+      { name: 'Pasta Carbonara', price: 14500 },
+      { name: 'Ensalada César', price: 10000 },
+      { name: 'Tiramisú', price: 8000 }
+    ];
+
+    let cart = []; // Array de objetos { name, quantity, unitPrice }
+
+    // Elementos del DOM
+    const platoSelect = document.getElementById('plato');
+    const cantidadInput = document.getElementById('cantidad');
+    const addBtn = document.getElementById('addToCartBtn');
+    const cartSummary = document.getElementById('cartSummary');
+    const payBtn = document.getElementById('payBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    // Función para renderizar el carrito
+    function renderCart() {
+      if (cart.length === 0) {
+        cartSummary.innerHTML = '<div class="empty-cart">🛒 No hay productos en el carrito</div>';
+        return;
+      }
+
+      let html = '<h3>Resumen del pedido</h3>';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const subtotal = item.quantity * item.unitPrice;
+        total += subtotal;
+        html += `<div class="cart-item">
+          <span>${item.name} x${item.quantity}</span>
+          <span>${subtotal.toLocaleString('es-CL')}</span>
+        </div>`;
+      });
+
+      html += `<div class="total">Total: ${total.toLocaleString('es-CL')}</div>`;
+      cartSummary.innerHTML = html;
+    }
+
+    // Agregar item al carrito
+    function addToCart() {
+      const selectedOption = platoSelect.options[platoSelect.selectedIndex];
+      const name = selectedOption.value;
+      const unitPrice = parseInt(selectedOption.dataset.price);
+      const quantity = parseInt(cantidadInput.value) || 1;
+
+      // Buscar si ya existe en el carrito
+      const existingIndex = cart.findIndex(item => item.name === name);
+      if (existingIndex !== -1) {
+        cart[existingIndex].quantity += quantity;
+      } else {
+        cart.push({ name, quantity, unitPrice });
+      }
+
+      renderCart();
+      // Resetear cantidad a 1
+      cantidadInput.value = 1;
+    }
+
+    // Cancelar pedido (vaciar carrito)
+    function cancelOrder() {
+      cart = [];
+      renderCart();
+    }
+
+    // Pagar (simulación)
+    function payOrder() {
+      if (cart.length === 0) {
+        alert('El carrito está vacío. Agrega productos primero.');
+        return;
+      }
+      const total = cart.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
+      alert(`✅ Pedido pagado exitosamente. Total: ${total.toLocaleString('es-CL')}`);
+      cancelOrder(); // Opcional: limpiar después del pago
+    }
+
+    // Event listeners
+    addBtn.addEventListener('click', addToCart);
+    cancelBtn.addEventListener('click', cancelOrder);
+    payBtn.addEventListener('click', payOrder);
+
+    // Render inicial vacío
+    renderCart();
+  </script>
+</body>
+</html>

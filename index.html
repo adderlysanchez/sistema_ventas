@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Ventas - Inicio</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo">LOGO</h1>
+    <input type="text" placeholder="Buscar...">
+    <nav>
+      <a href="promos.html" class="btn-yellow">¡Ofertas Especiales!</a>
+      <a href="carrito.html" class="icon-cart">🛒</a>
+    </nav>
+  </header>
+
+  <section class="menu">
+    <button>Categorías</button>
+    <button>Destacados</button>
+    <button>Mi Cuenta</button>
+  </section>
+
+  <section class="tabs">
+    <button class="active">Ropa</button>
+    <button>Electrónica</button>
+    <button>Hogar</button>
+  </section>
+
+  <main class="productos">
+    <div class="producto">
+      <img src="img1.jpg" alt="Producto A">
+      <h3>Producto A</h3>
+      <p>$25</p>
+      <button onclick="agregar('Producto A',25)">Añadir al Carrito</button>
+    </div>
+    <div class="producto">
+      <img src="img2.jpg" alt="Producto B">
+      <h3>Producto B</h3>
+      <p>$40</p>
+      <button onclick="agregar('Producto B',40)">Añadir al Carrito</button>
+    </div>
+    <div class="producto">
+      <img src="img3.jpg" alt="Producto C">
+      <h3>Producto C</h3>
+      <p>$30</p>
+      <button onclick="agregar('Producto C',30)">Añadir al Carrito</button>
+    </div>
+  </main>
+
+  <script>
+    function agregar(nombre, precio) {
+      alert(`${nombre} agregado al carrito ($${precio})`);
+    }
+  </script>
+</body>
+</html>
